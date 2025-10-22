@@ -10,22 +10,20 @@ class FullScreen extends StatelessWidget {
 
   Future<void> setWallpaper(BuildContext context) async {
     try {
-      // Choose where to set wallpaper (HOME_SCREEN / LOCK_SCREEN / BOTH_SCREENS)
+    
       int location = WallpaperManager.HOME_SCREEN;
 
-      // Download image and get file
+      
       File file = await DefaultCacheManager().getSingleFile(imageurl);
 
-      // Set wallpaper (returns bool)
       bool result =
           await WallpaperManager.setWallpaperFromFile(file.path, location);
 
-      // Show result message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(result
-              ? 'Wallpaper set successfully! ✅'
-              : 'Failed to set wallpaper ❌'),
+              ? 'Wallpaper set successfully! '
+              : 'Failed to set wallpaper '),
         ),
       );
     } catch (e) {
@@ -42,7 +40,7 @@ class FullScreen extends StatelessWidget {
       body: Stack(
         children: [
           GestureDetector(
-            onTap: () => Navigator.pop(context), // tap to go back
+            onTap: () => Navigator.pop(context), 
             child: Center(
               child: Image.network(
                 imageurl,
@@ -67,7 +65,6 @@ class FullScreen extends StatelessWidget {
             ),
           ),
 
-          // "Set Wallpaper" button at bottom
           Positioned(
             bottom: 0,
             left: 0,
