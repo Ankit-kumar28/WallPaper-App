@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:wallpaper_app/fullscreen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
-void main() {
+Future<void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await dotenv.load(fileName: ".env");
   runApp(WallPaper());
 }
 
@@ -27,7 +31,8 @@ class _WallPaperState extends State<WallPaper>{
   }
 
   fetchapi() async{
-    const String apiKey = 'pVte1ICQtuPFl2ZJqd5c1X5kCT2sFOdbHktWgzhwUTQXmfLYp6EwRRPz';
+   final String apiKey = dotenv.env['PEXELS_API_KEY'] ?? '';
+
     const String apiUrl = "https://api.pexels.com/v1/curated?per_page=80";
 
     final response = await http.get(
